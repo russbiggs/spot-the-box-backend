@@ -29,7 +29,12 @@ def add_photo(event, context):
     buffer = BytesIO()
     buffer.write(image)
     buffer.seek(0)
-    s3_client.upload_fileobj(buffer, os.environ['BUCKET'], f'{name}.jpg')
+    s3_client.upload_fileobj(
+        buffer, 
+        os.environ['BUCKET'], 
+        f'{name}.jpg', 
+        ExtraArgs={"ACL": "public-read"}
+    )
     response = {
         "statusCode": 200,
         "headers": headers,

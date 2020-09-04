@@ -6,6 +6,7 @@ frameworkVersion: ">=1.1.0 <2.0.0"
 
 custom:
   bucket: spot-the-box
+  bucket-photos: spot-the-box-imgs
 provider:
   name: aws
   runtime: python3.8
@@ -45,6 +46,15 @@ functions:
           cors: true
     environment:
       BUCKET: ${self:custom.bucket}
+  photo:
+    handler: mailbox/photo.add_photo
+    events:
+      - http:
+          path: photo
+          method: post
+          cors: true
+    environment:
+      BUCKET: ${self:custom.bucket-photos}
 
 resources:
   Resources:

@@ -18,13 +18,14 @@ def list(event, context):
     }
 
     features_timestamps = {}
+    features = {}
 
     for item in result['Items']:
-      if item['outlet'] not in features_timestamps or item['createdAt'] > features_timestamps[ item['outlet' ] ]:
+      if (item['outlet'] not in features_timestamps) or (item['createdAt'] > features_timestamps[ item['outlet' ] ]):
         features_timestamps[ item['outlet'] ] = item['createdAt']
-      else:
-        continue
-
+        features[ item['outlet'] ] = item
+    
+    for item in features.values():
       feature = {
         "type": "Feature",
         "properties": {

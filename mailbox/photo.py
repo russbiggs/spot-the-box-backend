@@ -37,9 +37,9 @@ def add_photo(event, context):
     )
     response = {
         "statusCode": 200,
-        "headers": headers,
+        "headers": header,
         "body": {
             "status":"success"
         }
     }
-    return reponse
+    return response
